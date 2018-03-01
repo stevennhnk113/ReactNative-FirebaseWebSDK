@@ -5,6 +5,10 @@ import { RequestApiModel } from "../../Models/DataModel/RequestApiModel";
 
 class _UserApiController extends BaseApiController
 {
+	constructor(){
+		super('Users');
+	}
+
 	public async ReadUser(userID: string) : Promise<ResponseApiModel>
 	{
 		//console.log("Api ReadUser");
@@ -12,6 +16,19 @@ class _UserApiController extends BaseApiController
 		{
 			return new ResponseApiModel(ResponseStatusDataModel.AppError, null);
 		}
+
+		let result = this.Collection.child(userID).once;
+	}
+
+	public async CreateUser(user: UserDataModel) : Promise<ResponseApiModel>
+	{
+		//console.log("Api ReadUser");
+		if (user.ID == null || user.ID === "")
+		{
+			return new ResponseApiModel(ResponseStatusDataModel.AppError, null);
+		}
+
+		await this.Collection.child(user.ID).set(user);
 	}
 }
 

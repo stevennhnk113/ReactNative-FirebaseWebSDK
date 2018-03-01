@@ -67,4 +67,38 @@ export class UserController extends BaseController {
 		}
 		// Todo: get user from database
 	}
+
+	public async RegisterUser(userLoginDataModel: UserLoginDataModel) {
+		// Save to authentication
+		let loginResult;
+		try {
+			loginResult = await AppGlobals.FirebaseApp.auth().createUserWithEmailAndPassword(userLoginDataModel.EmailAddress, userLoginDataModel.Password);
+
+			AppGlobals.UserLoginInfo = userLoginDataModel;
+			
+		}
+		catch (error) {
+			switch (error.code) {
+				case 'auth/invalid-email':
+					return ResponseStatusDataModel.InvalidEmail;
+				case 'auth/user-disabled':
+					return ResponseStatusDataModel.UserDisabled;
+				case 'auth/user-not-found':
+					return ResponseStatusDataModel.NotExist;
+				case 'auth/wrong-password':
+					return ResponseStatusDataModel.WrongPassword;
+				default:
+					return ResponseStatusDataModel.Unknown;
+			}
+		}
+
+		// Save to database
+		try {
+
+		} catch {
+			
+		}
+
+		return await this.ReadUser(loginResult.user.uid);
+	}
 }

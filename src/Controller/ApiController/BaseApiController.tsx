@@ -3,7 +3,9 @@ import { ResponseStatusDataModel, ResponseApiModel } from '../../Models/DataMode
 
 export class BaseApiController
 {
-	public constructor(){
-
+	protected Collection: firebase.database.Reference;
+	
+	public constructor(collectionName: string){
+		this.Collection = AppGlobals.FirebaseApp.database().ref().child(collectionName);
 	}
 }

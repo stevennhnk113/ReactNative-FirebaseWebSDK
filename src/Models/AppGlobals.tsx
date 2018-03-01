@@ -33,10 +33,9 @@ class _AppGlobals {
 	}
 
 	private _FirebaseApp: Firebase.app.App
-    get FirebaseApp(): Firebase.app.App
-    {
-        return this._FirebaseApp;
-    }
+	get FirebaseApp(): Firebase.app.App {
+		return this._FirebaseApp;
+	}
 
 	//////////////////////////////
 	public constructor() {
@@ -46,13 +45,13 @@ class _AppGlobals {
 		// Use your Firebase configuratioh. 
 		// Follow Project Read for instruction on where to get it
 		this._FirebaseApp = Firebase.initializeApp({
-            apiKey: "",
-            authDomain: "",
-            databaseURL: "",
-            projectId: "",
-            storageBucket: "",
-            messagingSenderId: ""
-          });
+			apiKey: "AIzaSyCMCCzhTuxtrkQAB5VQ9-h447EAEAC-mqs",
+			authDomain: "testproject-bf510.firebaseapp.com",
+			databaseURL: "https://testproject-bf510.firebaseio.com",
+			projectId: "testproject-bf510",
+			storageBucket: "testproject-bf510.appspot.com",
+			messagingSenderId: "990196031625"
+		});
 	}
 
 	public async GetUserLoginInfo() {
@@ -101,7 +100,7 @@ class _AppGlobals {
 	public async SetIsLoggedIn(isRememberPassword: boolean) {
 		await AsyncStorageHelper.SetIsLoggedIn(isRememberPassword);
 	}
-	
+
 	public async GetUserID(): Promise<string> {
 		let result = await AsyncStorageHelper.GetUserID();
 		return result;
