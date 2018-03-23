@@ -18,11 +18,13 @@ export class UserController extends BaseController {
 	public async LoginUser(userLoginDataModel?: UserLoginDataModel): Promise<ResponseStatusDataModel> {
 		let isUserLoggedIn = await AppGlobals.GetIsLoggedIn();
 		if (isUserLoggedIn) {
+			console.log('logged in');
 			let userID = await AppGlobals.GetUserID();
 			return await this.ReadUser(userID);
 		}
 		else 
 		{
+			console.log('not logged in');
 			if (userLoginDataModel == null) {
 				return ResponseStatusDataModel.AppError;
 			}
@@ -38,7 +40,8 @@ export class UserController extends BaseController {
 				let loginResult = await AppGlobals.FirebaseApp.auth().signInWithEmailAndPassword(userLoginDataModel.EmailAddress, userLoginDataModel.Password);
 
 				AppGlobals.UserLoginInfo = userLoginDataModel;
-				return await this.ReadUser(loginResult.user.uid);
+				
+				return ResponseStatusDataModel.Success;
 			}
 			catch (error) {
 				switch (error.code) {
@@ -74,10 +77,20 @@ export class UserController extends BaseController {
 		try {
 			loginResult = await AppGlobals.FirebaseApp.auth().createUserWithEmailAndPassword(userLoginDataModel.EmailAddress, userLoginDataModel.Password);
 
+			console.log(loginResult);
+
 			AppGlobals.UserLoginInfo = userLoginDataModel;
 			
+			let userData = new UserDataModel();
+			userData.EmailAddress = userLoginDataModel.EmailAddress;
+			userData.ID = loginResult.uid;
+
+			AppGlobals.FirebaseApp.database().ref('users/' + loginResult.uid).set(userData, () => {});
+
+			return ResponseStatusDataModel.Success;
 		}
 		catch (error) {
+			console.log(error.code);
 			switch (error.code) {
 				case 'auth/invalid-email':
 					return ResponseStatusDataModel.InvalidEmail;
@@ -90,15 +103,6 @@ export class UserController extends BaseController {
 				default:
 					return ResponseStatusDataModel.Unknown;
 			}
-		}
-
-		// Save to database
-		try {
-
-		} catch {
-			
-		}
-
-		return await this.ReadUser(loginResult.user.uid);
+		}		
 	}
 }

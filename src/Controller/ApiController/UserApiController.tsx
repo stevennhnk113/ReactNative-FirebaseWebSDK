@@ -22,7 +22,7 @@ class _UserApiController extends BaseApiController
 
 	public async CreateUser(user: UserDataModel) : Promise<ResponseApiModel>
 	{
-		//console.log("Api ReadUser");
+		//console.log("Api CreateUser");
 		if (user.ID == null || user.ID === "")
 		{
 			return new ResponseApiModel(ResponseStatusDataModel.AppError, null);

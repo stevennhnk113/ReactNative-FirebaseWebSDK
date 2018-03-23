@@ -4,14 +4,20 @@ import { StackNavigator, TabNavigator } from 'react-navigation';
 
 import LoginView from './Views/LoginView';
 import HomeView from './Views/HomeView';
+import RegisterView from './Views/RegisterView';
+import LoadingView from './Views/LoadingView';
 
-const MainNavigationStack = StackNavigator({
-	LoginView: { screen: LoginView },
-	HomeView: { screen: HomeView }
-},
+const MainNavigationStack = StackNavigator(
+	{
+		LoadingView: { screen: LoadingView },
+		LoginView: { screen: LoginView },
+		RegisterView: { screen: RegisterView },
+		HomeView: { screen: HomeView },
+	},
 	{
 		headerMode: 'none'
-	});
+	}
+);
 
 export default class App extends React.Component {
 	render() {

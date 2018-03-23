@@ -13,7 +13,7 @@ import { CheckBox } from 'react-native-elements';
 import AppGlobals from '../Models/AppGlobals';
 import BaseView from '../Views/BaseView';
 
-export default class LoginView extends BaseView{
+export default class RegisterView extends BaseView{
 	private UserLoginData: UserLoginDataModel;
 
 	constructor(props: any) {
@@ -59,8 +59,8 @@ export default class LoginView extends BaseView{
 						placeholderTextColor='black'/>
 				</View>
 
-				<TouchableOpacity style={styles.Register} onPress={() => AppGlobals.UserController.LoginUser(this.UserLoginData)}>
-					<Text style={styles.Text}> Login </Text>
+				<TouchableOpacity style={styles.Register} onPress={() => AppGlobals.UserController.RegisterUser(this.UserLoginData)}>
+					<Text style={styles.Text}> Register </Text>
 				</TouchableOpacity>
 				<View style={styles.OuterSpace}></View>
 			</View>

@@ -13,7 +13,7 @@ import { CheckBox } from 'react-native-elements';
 import AppGlobals from '../Models/AppGlobals';
 import BaseView from '../Views/BaseView';
 
-export default class LoginView extends BaseView{
+export default class LoadingView extends BaseView{
 	private UserController: UserController;
 	private UserLoginData: UserLoginDataModel;
 	private IsRememberPassword: boolean;
@@ -32,9 +32,9 @@ export default class LoginView extends BaseView{
 		this.IsRememberPassword = false;
 	}
 
-	private async RegisterUser() {
+	private async LoginUser() {
 		try {
-			let loginStatus = await this.UserController.RegisterUser(this.UserLoginData);
+			let loginStatus = await this.UserController.LoginUser(this.UserLoginData);
 			switch (loginStatus) {
 				case ResponseStatusDataModel.Success:
 					console.log("Success");
@@ -70,10 +70,9 @@ export default class LoginView extends BaseView{
 		return (
 			<View style={[styles.MainViewStyles]}>
 				<View style={styles.OuterSpace}></View>
-				<View style={styles.Input}>
-					<TextInput/>
-					<TextInput/>
-				</View>
+				<TouchableOpacity style={styles.Login} onPress={() => this.props.navigation.navigate('LoginView')}>
+					<Text style={styles.Text}> Login </Text>
+				</TouchableOpacity>
 
 				<TouchableOpacity style={styles.Register} onPress={() => this.props.navigation.navigate('RegisterView')}>
 					<Text style={styles.Text}> Register </Text>
@@ -93,7 +92,7 @@ const styles = StyleSheet.create({
 	OuterSpace: {
 		flex: 3,
 	},
-	Input: {
+	Login: {
 		flex: 1,
 		flexDirection: 'column',
 		justifyContent: 'center',
