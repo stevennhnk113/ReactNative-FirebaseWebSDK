@@ -3,7 +3,7 @@
 # Installation
 1. Download and install Node
 
-Window: 
+Window and macOS: 
 
 - You can download and install the executatble file at https://nodejs.org/en/
 - Preferred 8.9.4
@@ -11,7 +11,7 @@ Window:
 
 2. Download and install Expo IDE
 
-Both Window and Mac: download at https://github.com/expo/xde/releases
+Window and macOS: download at https://github.com/expo/xde/releases
 
 3. Clone this project
 ```js
@@ -23,6 +23,10 @@ git clone https://github.com/stevennhnk113/ReactNative-FirebaseWebSDK.git
 Window:
 
 - Open Start.bat
+- Run `run npm install`
+
+macOS:
+- Open terminal and go to the project directory
 - Run `run npm install`
 
 5. Open project on Expo IDE
